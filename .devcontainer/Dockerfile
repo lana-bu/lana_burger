@@ -1,15 +1,26 @@
-# Base Image
-FROM mcr.microsoft.com/devcontainers/universal:2-linux
+# Use the default Linux Universal Image
+FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
-# Install Python, Pip, and Node.js
-RUN apt-get update && apt-get install -y python3 python3-pip xz-utils && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Set the working directory
+WORKDIR /workspace
 
-# Install Vue CLI globally
+# Install basic utilities
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    python3 \
+    python3-pip \
+    python3-venv \
+    nodejs \
+    npm
+
+# Install Vue.js (Node.js package manager for Vue)
 RUN npm install -g @vue/cli
 
-# Install Flask using pip
-RUN pip3 install Flask
+# Install Flask (Python web framework)
+RUN pip3 install flask
 
-# Set up working directory
-WORKDIR /workspace
+# Expose the necessary ports (default for Vue and Flask apps)
+EXPOSE 8080
+EXPOSE 5000
