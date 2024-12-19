@@ -24,3 +24,10 @@ RUN pip3 install flask
 # Expose the necessary ports (default for Vue and Flask apps)
 EXPOSE 8080
 EXPOSE 5000
+
+# Create a Python virtual environment
+RUN python3 -m venv /workspace/.venv
+
+# Ensure the virtual environment is activated and install Flask
+RUN /workspace/.venv/bin/pip install --upgrade pip
+RUN /workspace/.venv/bin/pip install flask
